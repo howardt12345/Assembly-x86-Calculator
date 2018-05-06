@@ -33,8 +33,8 @@ result			DWORD	?		;								//The Result.
 resultDiv		REAL4	?		;								//The Result of division.
 firstPart		DWORD	?		;								//The part of the quotient before the decimal place.
 secondPart		DWORD	?		;								//The part of the quotient after the decimal place.
-remainder		DWORD	?		;
-temp			DWORD	?		;
+remainder		DWORD	?		;								//The remainder of the first part of the quotient.
+temp			DWORD	?		;								//Temporary value used in the calculation of the second part of the quotient.00
 
 .code
 
