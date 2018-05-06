@@ -82,13 +82,12 @@ main	PROC;												//The main procedure.
 		CMP		eax,			4;								//Compare eax to 4.
 		JE		Division;										//Jump to Division if equal.
 
-
 	Addition:;												//Addition:
 ;		//Calculation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
 		ADD		eax,			secondNum;						//Adds the value of secondNum to register eax.
 		MOV		result,			eax;							//Stores value of eax in result.
-;		//Print result.
+;		//Print equation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset sum;						//Puts memory address of sum in register edx.
@@ -97,19 +96,19 @@ main	PROC;												//The main procedure.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
+;		//Print result:
 		MOV		eax,			result;							//Puts value of result in register eax.
 		CALL	WriteInt;										//Writes the integer in register eax.
-
+;		//Jump to loop.
 		CALL	CrLf;											//New Line.
 		JMP		JumpToLoop;										//Jump to JumpToLoop.
-
 
 	Subtraction:;											//Subtraction:
 ;		//Calculation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
 		SUB		eax,			secondNum;						//Subtracts the value of secondNum from register eax.
 		MOV		result,			eax;							//Stores value of eax in result.
-;		//Print result.
+;		//Print equation:
 		MOV		eax,			 firstNum;						//Puts value of firstNum in register eax.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset diff;					//Puts memory address of diff in register edx.
@@ -118,12 +117,12 @@ main	PROC;												//The main procedure.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
+;		//Print result:
 		MOV		eax,			result;							//Puts value of result in register eax.
 		CALL	WriteInt;										//Writes the integer in register eax.
-
+;		//Jump to loop.
 		CALL	CrLf;											//New Line.
 		JMP		JumpToLoop;										//Jump to JumpToLoop.
-
 
 	Multiplication:;										//Multiplication:
 ;		//Calculation:
@@ -131,7 +130,7 @@ main	PROC;												//The main procedure.
 		MOV		ebx,			secondNum;						//Puts value of secondNum in register ebx.
 		MUL		ebx;											//Multiplies the value in eax with the value in ebx.
 		MOV		result,			eax;							//Stores value of eax in result.
-;		//Print result.
+;		//Print equation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset multi;					//Puts memory address of multi in register edx.
@@ -140,12 +139,12 @@ main	PROC;												//The main procedure.
 		CALL	WriteInt;										//Writes the integer.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
+;		//Print result:
 		MOV		eax,			result;							//Puts value of result in register eax.
 		CALL	WriteInt;										//Writes the integer in register eax.
-
+;		//Jump to loop.
 		CALL	CrLf;											//New Line.
 		JMP		JumpToLoop;										//Jump to JumpToLoop.
-
 
 	Division:;												//Division:
 ;		//Checks if numbers can be divided:
@@ -163,7 +162,7 @@ main	PROC;												//The main procedure.
 		FRNDINT;												//Rounds the value in ST(0) to the nearest integral value.
 		FIST	bigInt;											//Stores integer in bigInt.
 		FST		resultDiv;										//Stores value of ST(0) in resultDiv.
-;		//Print result.
+;		//Print equation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
 		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset divi;					//Puts memory address of divi in register edx.
@@ -172,7 +171,7 @@ main	PROC;												//The main procedure.
 		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
-
+;		//Calculate first part of result:
 		MOV		edx,			0;								//Puts 0 in register edx.
 		MOV		eax,			bigInt;							//Puts value of bigInt in register eax.
 		CDQ;													//Sign-extend eax to edx.
@@ -181,20 +180,21 @@ main	PROC;												//The main procedure.
 		DIV		ebx;											//Divides eax by ebx.
 		MOV		firstPart,		eax;							//Stores value of eax in firstPart.
 		MOV		remainder,		edx;							//Stores value of edx in remainder.
-
+;		//Print first part of result:
 		MOV		eax,			firstPart;						//Puts value of firstPart in register eax.
 		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset dot;						//Puts memory address of dot in register edx.					
 		CALL	WriteString;									//Writes the String in register edx.
-
+;		//Calculate second part of result:
 		MOV		eax,			firstPart;						//Puts value of firstPart in register eax.
 		MUL		precision;										//Multiply eax by precision.
 		MOV		temp,			eax;							//Stores value of eax in temp.
 		MOV		eax,			bigInt;							//Puts value of bigInt in register eax.
 		SUB		eax,			temp;							//Subtracts the value of temp from register eax.
+;		//Print second part of result:
 		MOV		secondPart,		eax;							//Stores the value of eax in secondPart.
 		CALL	WriteDec;										//Writes the integer in register eax.
-
+;		//Jump to loop.
 		CALL	CrLf;											//New Line.
 		JMP		JumpToLoop;										//Jump to JumpToLoop.
 
