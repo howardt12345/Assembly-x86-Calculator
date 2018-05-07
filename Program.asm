@@ -12,7 +12,7 @@ invalid			BYTE	"Invalid input.",		0;				//Invalid input.
 cannotDivide	BYTE	"Numbers cannot be negative or zero.",		0;									//Cannot divide numbers error.
 goodbye			BYTE	"Goodbye.",				0;				//Goodbye message.
 
-equals			BYTE	" = ", 0;								//Equals String.
+equals			BYTE	" = ", 0;								//String for equals symbol.
 sum				BYTE	" + ", 0;								//String for addition symbol.
 diff			BYTE	" - ", 0;								//String for subtraction symbol.
 multi			BYTE	" * ", 0;								//String for multiplication symbol.
@@ -27,14 +27,14 @@ precision		DWORD	1000000	;								//The precision of the floating point number r
 firstNum		DWORD	?		;								//The first number.
 secondNum		DWORD	?		;								//The second number.
 opt				DWORD	?		;								//The operator.
-bigInt			DWORD	0		;								//represents the floating point number multiplied by precision
 ;															//Calculated results:
+bigInt			DWORD	0		;								//The floating point number multiplied by precision.
 result			DWORD	?		;								//The Result.
 resultDiv		REAL4	?		;								//The Result of division.
 firstPart		DWORD	?		;								//The part of the quotient before the decimal place.
 secondPart		DWORD	?		;								//The part of the quotient after the decimal place.
 remainder		DWORD	?		;								//The remainder of the first part of the quotient.
-temp			DWORD	?		;								//Temporary value used in the calculation of the second part of the quotient.00
+temp			DWORD	?		;								//Temporary value used in the calculation of the second part of the quotient.
 
 .code
 
@@ -45,19 +45,19 @@ main	PROC;												//The main procedure.
 		CALL	WriteString;									//Writes the String in register edx.
 
 		CALL	ReadInt;										//Reads an integer to register eax.
-		MOV		firstNum,		eax;							//Stores read integer in firstNum.
+		MOV		firstNum,		eax;							//Stores value of eax in firstNum.
 
 		MOV		edx,			offset prompt_2;				//Puts memory address of prompt_2 in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 
 		CALL	ReadInt;										//Reads an integer to register eax.
-		mov		secondNum,		eax;							//Stores read integer in secondNum.
+		mov		secondNum,		eax;							//Stores value of eax in secondNum.
 
 		MOV		edx,			offset prompt_3;				//Puts memory address of prompt_3 in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 
 		CALL	ReadInt;										//Reads an integer to register eax.
-		MOV		opt,			eax;							//Stores read integer in opt.
+		MOV		opt,			eax;							//Stores value of eax in opt.
 
 
 	ConditionalJumps:;										//Conditional jumps:
@@ -89,11 +89,11 @@ main	PROC;												//The main procedure.
 		MOV		result,			eax;							//Stores value of eax in result.
 ;		//Print equation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset sum;						//Puts memory address of sum in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 		MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 ;		//Print result:
@@ -110,11 +110,11 @@ main	PROC;												//The main procedure.
 		MOV		result,			eax;							//Stores value of eax in result.
 ;		//Print equation:
 		MOV		eax,			 firstNum;						//Puts value of firstNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset diff;					//Puts memory address of diff in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 		MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 ;		//Print result:
@@ -132,11 +132,11 @@ main	PROC;												//The main procedure.
 		MOV		result,			eax;							//Stores value of eax in result.
 ;		//Print equation:
 		MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset multi;					//Puts memory address of multi in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 		MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
-		CALL	WriteInt;										//Writes the integer.
+		CALL	WriteInt;										//Writes the integer in register eax.
 		MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
 		CALL	WriteString;									//Writes the String in register edx.
 ;		//Print result:
