@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/06/18 19:30:24
+Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/08/18 14:48:55
 Assembly x86 Calculato					     Page 1 - 1
 
 
@@ -25,29 +25,31 @@ Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/06/18 19:30:24
 
  00000000			.data
 				;															//Strings:
- 00000000 46 69 72 73 74	prompt_1		BYTE	"First Number:  ",		0;				//Prompt for first number.
+ 00000000 4F 70 65 72 61	prompt_1		BYTE	"Operation (1 for add, 2 for subtract, 3 for multiply, 4 for divide): ", 0;	//Prompt for operation.
+	   74 69 6F 6E 20
+	   28 31 20 66 6F
+	   72 20 61 64 64
+	   2C 20 32 20 66
+	   6F 72 20 73 75
+	   62 74 72 61 63
+	   74 2C 20 33 20
+	   66 6F 72 20 6D
+	   75 6C 74 69 70
+	   6C 79 2C 20 34
+	   20 66 6F 72 20
+	   64 69 76 69 64
+	   65 29 3A 20 00
+ 00000046 46 69 72 73 74	prompt_2		BYTE	"First Number:  ",		0;				//Prompt for first number.
 	   20 4E 75 6D 62
 	   65 72 3A 20 20
 	   00
- 00000010 53 65 63 6F 6E	prompt_2		BYTE	"Second Number: ",		0;				//Prompt for second number.
+ 00000056 53 65 63 6F 6E	prompt_3		BYTE	"Second Number: ",		0;				//Prompt for second number.
 	   64 20 4E 75 6D
 	   62 65 72 3A 20
 	   00
- 00000020 4F 70 65 72 61	prompt_3		BYTE	"Operator (1 for add, 2 for subtract, 3 for multiply, 4 for divide): ",		0;	//Prompt for operator.
-	   74 6F 72 20 28
-	   31 20 66 6F 72
-	   20 61 64 64 2C
-	   20 32 20 66 6F
-	   72 20 73 75 62
-	   74 72 61 63 74
-	   2C 20 33 20 66
-	   6F 72 20 6D 75
-	   6C 74 69 70 6C
-	   79 2C 20 34 20
-	   66 6F 72 20 64
-	   69 76 69 64 65
-	   29 3A 20 00
- 00000065 57 6F 75 6C 64	loop_prompt		BYTE	"Would you like to perform another calculation? 1 for YES or 0 for NO: ",	0;	//Prompt for loop.
+ 00000066 4E 75 6D 62 65	prompt_4		BYTE	"Number: ",				0;				//Prompt for prime number generation.
+	   72 3A 20 00
+ 0000006F 57 6F 75 6C 64	loop_prompt		BYTE	"Would you like to perform another calculation? 1 for YES or 0 for NO: ",	0;	//Prompt for loop.
 	   20 79 6F 75 20
 	   6C 69 6B 65 20
 	   74 6F 20 70 65
@@ -62,10 +64,10 @@ Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/06/18 19:30:24
 	   30 20 66 6F 72
 	   20 4E 4F 3A 20
 	   00
- 000000AC 49 6E 76 61 6C	invalid			BYTE	"Invalid input.",		0;				//Invalid input.
+ 000000B6 49 6E 76 61 6C	invalid			BYTE	"Invalid input.",		0;				//Invalid input.
 	   69 64 20 69 6E
 	   70 75 74 2E 00
- 000000BB 4E 75 6D 62 65	cannotDivide	BYTE	"Numbers cannot be negative or zero.",		0;									//Cannot divide numbers error.
+ 000000C5 4E 75 6D 62 65	cannotDivide	BYTE	"Numbers cannot be negative or zero.",		0;									//Cannot divide numbers error.
 	   72 73 20 63 61
 	   6E 6E 6F 74 20
 	   62 65 20 6E 65
@@ -73,232 +75,258 @@ Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/06/18 19:30:24
 	   65 20 6F 72 20
 	   7A 65 72 6F 2E
 	   00
- 000000DF 47 6F 6F 64 62	goodbye			BYTE	"Goodbye.",				0;				//Goodbye message.
+ 000000E9 47 6F 6F 64 62	goodbye			BYTE	"Goodbye.",				0;				//Goodbye message.
 	   79 65 2E 00
 
- 000000E8 20 3D 20 00		equals			BYTE	" = ", 0;								//Equals String.
- 000000EC 20 2B 20 00		sum				BYTE	" + ", 0;								//String for addition symbol.
- 000000F0 20 2D 20 00		diff			BYTE	" - ", 0;								//String for subtraction symbol.
- 000000F4 20 2A 20 00		multi			BYTE	" * ", 0;								//String for multiplication symbol.
- 000000F8 20 2F 20 00		divi			BYTE	" / ", 0;								//String for division symbol.
- 000000FC 2E 00			dot				BYTE	"."	 , 0;								//String for decimal point.
+ 000000F2 20 3D 20 00		equals			BYTE	" = ", 0;								//String for equals symbol.
+ 000000F6 20 2B 20 00		sum				BYTE	" + ", 0;								//String for addition symbol.
+ 000000FA 20 2D 20 00		diff			BYTE	" - ", 0;								//String for subtraction symbol.
+ 000000FE 20 2A 20 00		multi			BYTE	" * ", 0;								//String for multiplication symbol.
+ 00000102 20 2F 20 00		divi			BYTE	" / ", 0;								//String for division symbol.
+ 00000106 2E 00			dot				BYTE	"."	 , 0;								//String for decimal point.
 
 				;															//Predefined values:
-
- 000000FE 00000004		Operations		DWORD	4		;								//The number of operations.
- 00000102 000F4240		precision		DWORD	1000000	;								//The precision of the floating point number result.
+ 00000108 00000005		totalOpts		DWORD	5		;								//The number of operations.
+ 0000010C 00000004		binaryOpts		DWORD	4		;								//The number of binary operations.
+ 00000110 000F4240		precision		DWORD	1000000	;								//The precision of the floating point number result.
 
 				;															//User inputted data:
- 00000106 00000000		firstNum		DWORD	?		;								//The first number.
- 0000010A 00000000		secondNum		DWORD	?		;								//The second number.
- 0000010E 00000000		opt				DWORD	?		;								//The operator.
- 00000112 00000000		bigInt			DWORD	0		;								//represents the floating point number multiplied by precision
+ 00000114 00000000		opt				DWORD	?		;								//The operator.
+ 00000118 00000000		num				DWORD	?		;								//The number (unary operations).
+ 0000011C 00000000		firstNum		DWORD	?		;								//The first number (binary operations).
+ 00000120 00000000		secondNum		DWORD	?		;								//The second number (binary operations).
+				;															//Calculated results:
+ 00000124 00000000		bigInt			DWORD	0		;								//The floating point number multiplied by precision.
+ 00000128 00000000		result			DWORD	?		;								//The Result.
+ 0000012C 00000000		resultDiv		REAL4	?		;								//The Result of division.
+ 00000130 00000000		firstPart		DWORD	?		;								//The part of the quotient before the decimal place.
+ 00000134 00000000		secondPart		DWORD	?		;								//The part of the quotient after the decimal place.
+ 00000138 00000000		remainder		DWORD	?		;								//The remainder of the first part of the quotient.
+ 0000013C 00000000		temp			DWORD	?		;								//Temporary value used in the calculation of the second part of the quotient.
 
- 00000116 00000000		result			DWORD	?		;								//The Result.
- 0000011A 00000000		resultDiv		REAL4	?		;								//The Result of division.
- 0000011E 00000000		firstPart		DWORD	?		;								//The part of the quotient before the decimal place.
- 00000122 00000000		secondPart		DWORD	?		;								//The part of the quotient after the decimal place.
- 00000126 00000000		remainder		DWORD	?		;
- 0000012A 00000000		temp			DWORD	?		;
  00000000			.code
 
  00000000			main	PROC;												//The main procedure.
 					
  00000000				ReadInput:;												//Reading data:
- 00000000  BA 00000000 R			MOV		edx,			offset prompt_1;				//Puts memory address of prompt_1 in register edx.
+ 00000000				GetOperation:;											//Read Operation:
+ 00000000  BA 00000000 R			MOV		edx,			offset prompt_1;				//Puts memory address of prompt_3 in register edx.
  00000005  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
-
  0000000A  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
- 0000000F  A3 00000106 R			MOV		firstNum,		eax;							//Stores read integer in firstNum.
-
- 00000014  BA 00000010 R			MOV		edx,			offset prompt_2;				//Puts memory address of prompt_2 in register edx.
- 00000019  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
-
- 0000001E  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
- 00000023  A3 0000010A R			mov		secondNum,		eax;							//Stores read integer in secondNum.
-
- 00000028  BA 00000020 R			MOV		edx,			offset prompt_3;				//Puts memory address of prompt_3 in register edx.
- 0000002D  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
-
- 00000032  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
- 00000037  A3 0000010E R			MOV		opt,			eax;							//Stores read integer in opt.
+ 0000000F  A3 00000114 R			MOV		opt,			eax;							//Stores value of eax in opt.	
 
 
- 0000003C				ConditionalJumps:;										//Conditional jumps:
- 0000003C  A1 0000010E R			MOV		eax,			opt;							//Puts value of opt in register eax.
- 00000041  8B 0D 000000FE R			MOV		ecx,			Operations;						//Puts value of Operations in register ecx.
- 00000047  BA 000000AC R			MOV		edx,			offset invalid;					//Puts memory address of invalid in register edx.
+ 00000014				CheckOperator:;										//Check the operator:
+ 00000014  A1 00000114 R			MOV		eax,			opt;							//Puts value of opt in register eax.
+ 00000019  8B 1D 00000108 R			MOV		ebx,			totalOpts;						//Puts value of totalOpts in register ebx.
+ 0000001F  8B 0D 0000010C R			MOV		ecx,			binaryOpts;						//Puts value of binaryOpts in register ecx.
+ 00000025  BA 000000B6 R			MOV		edx,			offset invalid;					//Puts memory address of invalid in register edx.
 				;		//Check if opt is within bounds.
- 0000004C  83 F8 00				CMP		eax,			0;								//Compare eax to 0.
- 0000004F  0F 8E 000001F8			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
+ 0000002A  83 F8 00				CMP		eax,			0;								//Compare eax to 0.
+ 0000002D  0F 8E 00000259			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
+ 00000033  3B C3				CMP		eax,			ebx;							//Compare eax to ebx.
+ 00000035  0F 8F 00000251			JG		InvalidResponse;								//Jumps to InvalidResponse if greater than ebx.
+				;		//Checks if opt is binary or unary operation:
+ 0000003B  3B C1				CMP		eax,			ecx;							//Compare eax to ebx.
+ 0000003D  7E 1F				JLE		BinaryOperations;								//Jumps to BinaryOperations if less than or equal to ecx.
+ 0000003F  7F 00				JG		UnaryOperations;								//Jumps to UnaryOperations if greater than ecx.
 
- 00000055  3B C1				CMP		eax,			ecx;							//Compare eax to ecx.
- 00000057  0F 8F 000001F0			JG		InvalidResponse;								//Jumps to InvalidResponse if greater than ecx.
+ 00000041				UnaryOperations:;										//Unary calculator operations:
+				;		//Get Number:
+ 00000041  BA 00000066 R			MOV		edx,			offset prompt_4;				//Puts memory address of prompt_1 in register edx.
+ 00000046  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 0000004B  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
+ 00000050  A3 00000118 R			MOV		num,			eax;							//Stores value of eax in num.
+				;		//Jump to operation:
+ 00000055  83 F8 05				CMP		eax,			5;								//Compare eax to 5.
+ 00000058  0F 84 000001F7			JE		PrimeGeneration;								//Jump to PrimeGeneration if equal to 5.
 
- 0000005D  83 F8 01				CMP		eax,			1;								//Compare eax to 1.
- 00000060  74 17				JE		Addition;										//Jump to Addition if equal to 1.
+ 0000005E				BinaryOperations:;										//Binary calculator operations:
+				;		//Get first number:
+ 0000005E  BA 00000046 R			MOV		edx,			offset prompt_2;				//Puts memory address of prompt_1 in register edx.
+ 00000063  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 00000068  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
+ 0000006D  A3 0000011C R			MOV		firstNum,		eax;							//Stores value of eax in firstNum.
+				;		//Get second number:
+ 00000072  BA 00000056 R			MOV		edx,			offset prompt_3;				//Puts memory address of prompt_2 in register edx.
+ 00000077  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 0000007C  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
+ 00000081  A3 00000120 R			mov		secondNum,		eax;							//Stores value of eax in secondNum.
+				;		//Jump to operation:
+ 00000086  A1 00000114 R			MOV		eax,			opt;							//Puts value of opt in register eax.
 
- 00000062  83 F8 02				CMP		eax,			2;								//Compare eax to 2.
- 00000065  74 5E				JE		Subtraction;									//Jump to Subtraction if equal to 2.
+ 0000008B  83 F8 01				CMP		eax,			1;								//Compare eax to 1.
+ 0000008E  74 17				JE		Addition;										//Jump to Addition if equal to 1.
 
- 00000067  83 F8 03				CMP		eax,			3;								//Compare eax to 3.
- 0000006A  0F 84 000000A1			JE		Multiplication;									//Jump to Multiplication if equal.
+ 00000090  83 F8 02				CMP		eax,			2;								//Compare eax to 2.
+ 00000093  74 5E				JE		Subtraction;									//Jump to Subtraction if equal to 2.
 
- 00000070  83 F8 04				CMP		eax,			4;								//Compare eax to 4.
- 00000073  0F 84 000000E6			JE		Division;										//Jump to Division if equal.
+ 00000095  83 F8 03				CMP		eax,			3;								//Compare eax to 3.
+ 00000098  0F 84 000000A1			JE		Multiplication;									//Jump to Multiplication if equal.
 
- 00000079				Addition:;												//Addition:
+ 0000009E  83 F8 04				CMP		eax,			4;								//Compare eax to 4.
+ 000000A1  0F 84 000000E6			JE		Division;										//Jump to Division if equal.
+
+ 000000A7				Addition:;												//Addition:
 				;		//Calculation:
- 00000079  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 0000007E  03 05 0000010A R			ADD		eax,			secondNum;						//Adds the value of secondNum to register eax.
- 00000084  A3 00000116 R			MOV		result,			eax;							//Stores value of eax in result.
-				;		//Print result.
- 00000089  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 0000008E  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 00000093  BA 000000EC R			MOV		edx,			offset sum;						//Puts memory address of sum in register edx.
- 00000098  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 0000009D  A1 0000010A R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
- 000000A2  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 000000A7  BA 000000E8 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
- 000000AC  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 000000B1  A1 00000116 R			MOV		eax,			result;							//Puts value of result in register eax.
- 000000B6  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000000A7  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 000000AC  03 05 00000120 R			ADD		eax,			secondNum;						//Adds the value of secondNum to register eax.
+ 000000B2  A3 00000128 R			MOV		result,			eax;							//Stores value of eax in result.
+				;		//Print equation:
+ 000000B7  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 000000BC  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000000C1  BA 000000F6 R			MOV		edx,			offset sum;						//Puts memory address of sum in register edx.
+ 000000C6  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 000000CB  A1 00000120 R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
+ 000000D0  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000000D5  BA 000000F2 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
+ 000000DA  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+				;		//Print result:
+ 000000DF  A1 00000128 R			MOV		eax,			result;							//Puts value of result in register eax.
+ 000000E4  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+				;		//Jump to loop.
+ 000000E9  E8 00000000 E			CALL	CrLf;											//New Line.
+ 000000EE  E9 00000173				JMP		JumpToLoop;										//Jump to JumpToLoop.
 
- 000000BB  E8 00000000 E			CALL	CrLf;											//New Line.
- 000000C0  E9 00000162				JMP		JumpToLoop;										//Jump to JumpToLoop.
-
-
- 000000C5				Subtraction:;											//Subtraction:
+ 000000F3				Subtraction:;											//Subtraction:
 				;		//Calculation:
- 000000C5  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 000000CA  2B 05 0000010A R			SUB		eax,			secondNum;						//Subtracts the value of secondNum to register eax.
- 000000D0  A3 00000116 R			MOV		result,			eax;							//Stores value of eax in result.
-				;		//Print result.
- 000000D5  A1 00000106 R			MOV		eax,			 firstNum;						//Puts value of firstNum in register eax.
- 000000DA  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 000000DF  BA 000000F0 R			MOV		edx,			offset diff;					//Puts memory address of diff in register edx.
- 000000E4  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 000000E9  A1 0000010A R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
- 000000EE  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 000000F3  BA 000000E8 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
- 000000F8  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 000000FD  A1 00000116 R			MOV		eax,			result;							//Puts value of result in register eax.
- 00000102  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000000F3  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 000000F8  2B 05 00000120 R			SUB		eax,			secondNum;						//Subtracts the value of secondNum from register eax.
+ 000000FE  A3 00000128 R			MOV		result,			eax;							//Stores value of eax in result.
+				;		//Print equation:
+ 00000103  A1 0000011C R			MOV		eax,			 firstNum;						//Puts value of firstNum in register eax.
+ 00000108  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 0000010D  BA 000000FA R			MOV		edx,			offset diff;					//Puts memory address of diff in register edx.
+ 00000112  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 00000117  A1 00000120 R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
+ 0000011C  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 00000121  BA 000000F2 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
+ 00000126  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+				;		//Print result:
+ 0000012B  A1 00000128 R			MOV		eax,			result;							//Puts value of result in register eax.
+ 00000130  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+				;		//Jump to loop.
+ 00000135  E8 00000000 E			CALL	CrLf;											//New Line.
+ 0000013A  E9 00000127				JMP		JumpToLoop;										//Jump to JumpToLoop.
 
- 00000107  E8 00000000 E			CALL	CrLf;											//New Line.
- 0000010C  E9 00000116				JMP		JumpToLoop;										//Jump to JumpToLoop.
-
-
- 00000111				Multiplication:;										//Multiplication:
+ 0000013F				Multiplication:;										//Multiplication:
 				;		//Calculation:
- 00000111  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 00000116  8B 1D 0000010A R			MOV		ebx,			secondNum;						//Puts value of secondNum in register ebx.
- 0000011C  F7 E3				MUL		ebx;											//Multiplies the value in eax with the value in ebx.
- 0000011E  A3 00000116 R			MOV		result,			eax;							//Stores value of eax in result.
-				;		//Print result.
- 00000123  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 00000128  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 0000012D  BA 000000F4 R			MOV		edx,			offset multi;					//Puts memory address of multi in register edx.
- 00000132  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 00000137  A1 0000010A R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
- 0000013C  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 00000141  BA 000000E8 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
- 00000146  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 0000014B  A1 00000116 R			MOV		eax,			result;							//Puts value of result in register eax.
- 00000150  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 0000013F  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 00000144  8B 1D 00000120 R			MOV		ebx,			secondNum;						//Puts value of secondNum in register ebx.
+ 0000014A  F7 E3				MUL		ebx;											//Multiplies the value in eax with the value in ebx.
+ 0000014C  A3 00000128 R			MOV		result,			eax;							//Stores value of eax in result.
+				;		//Print equation:
+ 00000151  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 00000156  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 0000015B  BA 000000FE R			MOV		edx,			offset multi;					//Puts memory address of multi in register edx.
+ 00000160  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 00000165  A1 00000120 R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
+ 0000016A  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
+ 0000016F  BA 000000F2 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
+ 00000174  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+				;		//Print result:
+ 00000179  A1 00000128 R			MOV		eax,			result;							//Puts value of result in register eax.
+ 0000017E  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+				;		//Jump to loop.
+ 00000183  E8 00000000 E			CALL	CrLf;											//New Line.
+ 00000188  E9 000000D9				JMP		JumpToLoop;										//Jump to JumpToLoop.
 
- 00000155  E8 00000000 E			CALL	CrLf;											//New Line.
- 0000015A  E9 000000C8				JMP		JumpToLoop;										//Jump to JumpToLoop.
-
-
- 0000015F				Division:;												//Division:
- 0000015F  BA 000000BB R			MOV		edx,			offset cannotDivide;			//Puts memory address of cannotDivide in register edx.
-
- 00000164  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 00000169  83 F8 00				CMP		eax,			0;								//Compare eax with 0.
- 0000016C  0F 8E 000000DB			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
-
- 00000172  A1 0000010A R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
- 00000177  83 F8 00				CMP		eax,			0;								//Compare eax with 0.
- 0000017A  0F 8E 000000CD			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
-
+ 0000018D				Division:;												//Division:
+				;		//Checks if numbers can be divided:
+ 0000018D  BA 000000C5 R			MOV		edx,			offset cannotDivide;			//Puts memory address of cannotDivide in register edx.
+ 00000192  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 00000197  83 F8 00				CMP		eax,			0;								//Compare eax with 0.
+ 0000019A  0F 8E 000000EC			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
+ 000001A0  A1 00000120 R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
+ 000001A5  83 F8 00				CMP		eax,			0;								//Compare eax with 0.
+ 000001A8  0F 8E 000000DE			JLE		InvalidResponse;								//Jumps to InvalidResponse if less than or equal to 0.
 				;		//Calculation:
- 00000180  D9 05 00000106 R			FLD		firstNum;										//Load firstNum into ST(0).
- 00000186  D8 35 0000010A R			FDIV	secondNum;										//Divide firstNum by secondNum.
- 0000018C  DA 0D 00000102 R			FIMUL	precision;										//Multiplies value by precision.
- 00000192  D9 FC				FRNDINT;												//Rounds the value in ST(0) to the nearest integral value.
- 00000194  DB 15 00000112 R			FIST	bigInt;											//Stores integer in bigInt.
- 0000019A  D9 15 0000011A R			FST		resultDiv;										//Stores value of ST(0) in resultDiv.
-				;		//Print result.
- 000001A0  A1 00000106 R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
- 000001A5  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 000001AA  BA 000000F8 R			MOV		edx,			offset divi;					//Puts memory address of divi in register edx.
- 000001AF  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 000001B4  A1 0000010A R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
- 000001B9  E8 00000000 E			CALL	WriteInt;										//Writes the integer.
- 000001BE  BA 000000E8 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
- 000001C3  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
-
- 000001C8  BA 00000000				MOV		edx,			0;								//Puts 0 in register edx.
- 000001CD  A1 00000112 R			MOV		eax,			bigInt;
- 000001D2  99					CDQ;													//Convert DWORD to QWORD
- 000001D3  8B 1D 00000102 R			MOV		ebx,			precision;
- 000001D9  99					CDQ;													//Convert DWORD to QWORD
- 000001DA  F7 F3				DIV		ebx;
- 000001DC  A3 0000011E R			MOV		firstPart,		eax;
- 000001E1  89 15 00000126 R			MOV		remainder,		edx;
- 000001E7  A1 0000011E R			MOV		eax,			firstPart;
- 000001EC  E8 00000000 E			CALL	WriteInt;
- 000001F1  BA 000000FC R			MOV		edx,			offset dot;
- 000001F6  E8 00000000 E			CALL	WriteString;
-
- 000001FB  A1 0000011E R			MOV		eax,			firstPart;
- 00000200  F7 25 00000102 R			MUL		precision;
- 00000206  A3 0000012A R			MOV		temp,			eax;
- 0000020B  A1 00000112 R			MOV		eax,			bigInt;
- 00000210  2B 05 0000012A R			SUB		eax,			temp;
- 00000216  A3 00000122 R			MOV		secondPart,		eax;
- 0000021B  E8 00000000 E			CALL	WriteDec;
-
- 00000220  E8 00000000 E			CALL	CrLf;											//New Line.
- 00000225  EB 00				JMP		JumpToLoop;										//Jump to JumpToLoop.
-
-
-
- 00000227				JumpToLoop:;											//Loops until user quits:
- 00000227  BA 00000065 R			MOV		edx,			offset loop_prompt;				//Puts memory address of loop_response in register edx.
- 0000022C  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 00000231  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
-
- 00000236  BA 000000AC R			MOV		edx,			offset invalid;					//Puts memory address of invalid in register edx.
-
- 0000023B  83 F8 00				CMP		eax,			0;								//Compares eax to 0.
- 0000023E  74 19				JE		ExitProgram;									//Jumps to ExitProgram if equal to 0.
- 00000240  7C 0B				JL		InvalidResponse;								//Jumps to InvalidResponse if less than 0.
-
- 00000242  83 F8 01				CMP		eax,			1;								//Compares eax to 1.
- 00000245  0F 84 FFFFFDB5			JE		ReadInput;										//Jump to ReadInput if equal to 1.
- 0000024B  7C 00				JL		InvalidResponse;								//Jumps to InvalidResponse if greater than 1.
+ 000001AE  D9 05 0000011C R			FLD		firstNum;										//Load firstNum into ST(0).
+ 000001B4  D8 35 00000120 R			FDIV	secondNum;										//Divide firstNum by secondNum.
+ 000001BA  DA 0D 00000110 R			FIMUL	precision;										//Multiplies value by precision.
+ 000001C0  D9 FC				FRNDINT;												//Rounds the value in ST(0) to the nearest integral value.
+ 000001C2  DB 15 00000124 R			FIST	bigInt;											//Stores integer in bigInt.
+ 000001C8  D9 15 0000012C R			FST		resultDiv;										//Stores value of ST(0) in resultDiv.
+				;		//Print equation:
+ 000001CE  A1 0000011C R			MOV		eax,			firstNum;						//Puts value of firstNum in register eax.
+ 000001D3  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000001D8  BA 00000102 R			MOV		edx,			offset divi;					//Puts memory address of divi in register edx.
+ 000001DD  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 000001E2  A1 00000120 R			MOV		eax,			secondNum;						//Puts value of secondNum in register eax.
+ 000001E7  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 000001EC  BA 000000F2 R			MOV		edx,			offset equals;					//Puts memory address of equals in register edx.
+ 000001F1  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+				;		//Calculate first part of result:
+ 000001F6  BA 00000000				MOV		edx,			0;								//Puts 0 in register edx.
+ 000001FB  A1 00000124 R			MOV		eax,			bigInt;							//Puts value of bigInt in register eax.
+ 00000200  99					CDQ;													//Sign-extend eax to edx.
+ 00000201  8B 1D 00000110 R			MOV		ebx,			precision;						//Puts value of precision in register ebx.
+ 00000207  99					CDQ;													//Sign-extend eax to edx.
+ 00000208  F7 F3				DIV		ebx;											//Divides eax by ebx.
+ 0000020A  A3 00000130 R			MOV		firstPart,		eax;							//Stores value of eax in firstPart.
+ 0000020F  89 15 00000138 R			MOV		remainder,		edx;							//Stores value of edx in remainder.
+				;		//Print first part of result:
+ 00000215  A1 00000130 R			MOV		eax,			firstPart;						//Puts value of firstPart in register eax.
+ 0000021A  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+ 0000021F  BA 00000106 R			MOV		edx,			offset dot;						//Puts memory address of dot in register edx.					
+ 00000224  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+				;		//Calculate second part of result:
+ 00000229  A1 00000130 R			MOV		eax,			firstPart;						//Puts value of firstPart in register eax.
+ 0000022E  F7 25 00000110 R			MUL		precision;										//Multiply eax by precision.
+ 00000234  A3 0000013C R			MOV		temp,			eax;							//Stores value of eax in temp.
+ 00000239  A1 00000124 R			MOV		eax,			bigInt;							//Puts value of bigInt in register eax.
+ 0000023E  2B 05 0000013C R			SUB		eax,			temp;							//Subtracts the value of temp from register eax.
+				;		//Print second part of result:
+ 00000244  A3 00000134 R			MOV		secondPart,		eax;							//Stores the value of eax in secondPart.
+ 00000249  E8 00000000 E			CALL	WriteDec;										//Writes the integer in register eax.
+				;		//Jump to loop.
+ 0000024E  E8 00000000 E			CALL	CrLf;											//New Line.
+ 00000253  EB 11				JMP		JumpToLoop;										//Jump to JumpToLoop.
 
 
- 0000024D				InvalidResponse:;										//Invalid response:
- 0000024D  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 00000252  E8 00000000 E			CALL	CrLf;											//New Line.
- 00000257  EB CE				JMP		JumpToLoop;										//Jump to JumpToLoop.
+ 00000255				PrimeGeneration:;										//Prime number generation:
+ 00000255  A1 00000118 R			MOV		eax,			num;							//Puts value of num in register eax.
+ 0000025A  E8 00000000 E			CALL	WriteInt;										//Writes the integer in register eax.
+				;		//Jump to loop.
+ 0000025F  E8 00000000 E			CALL	CrLf;											//New Line.
+ 00000264  EB 00				JMP		JumpToLoop;										//Jump to JumpToLoop.
 
- 00000259				ExitProgram:;											//Exits the program:
- 00000259  BA 000000DF R			MOV		edx,			offset goodbye;					//Puts memory address of goodbye in register edx.
- 0000025E  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
- 00000263  E8 00000000 E			CALL	CrLf;											//New Line.
+ 00000266				JumpToLoop:;											//Loops until user quits:
+ 00000266  BA 0000006F R			MOV		edx,			offset loop_prompt;				//Puts memory address of loop_response in register edx.
+ 0000026B  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 00000270  E8 00000000 E			CALL	ReadInt;										//Reads an integer to register eax.
+
+ 00000275  BA 000000B6 R			MOV		edx,			offset invalid;					//Puts memory address of invalid in register edx.
+
+ 0000027A  83 F8 00				CMP		eax,			0;								//Compares eax to 0.
+ 0000027D  74 19				JE		ExitProgram;									//Jumps to ExitProgram if equal to 0.
+ 0000027F  7C 0B				JL		InvalidResponse;								//Jumps to InvalidResponse if less than 0.
+
+ 00000281  83 F8 01				CMP		eax,			1;								//Compares eax to 1.
+ 00000284  0F 84 FFFFFD76			JE		ReadInput;										//Jump to ReadInput if equal to 1.
+ 0000028A  7C 00				JL		InvalidResponse;								//Jumps to InvalidResponse if greater than 1.
+
+
+ 0000028C				InvalidResponse:;										//Invalid response:
+ 0000028C  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 00000291  E8 00000000 E			CALL	CrLf;											//New Line.
+ 00000296  EB CE				JMP		JumpToLoop;										//Jump to JumpToLoop.
+
+
+ 00000298				ExitProgram:;											//Exits the program:
+ 00000298  BA 000000E9 R			MOV		edx,			offset goodbye;					//Puts memory address of goodbye in register edx.
+ 0000029D  E8 00000000 E			CALL	WriteString;									//Writes the String in register edx.
+ 000002A2  E8 00000000 E			CALL	CrLf;											//New Line.
 						exit;													//Exits the program.
- 00000268  6A 00	   *	    push   +000000000h
- 0000026A  E8 00000000 E   *	    call   ExitProcess
+ 000002A7  6A 00	   *	    push   +000000000h
+ 000002A9  E8 00000000 E   *	    call   ExitProcess
 
- 0000026F			main	ENDP;												//End main procedure.
+
+ 000002AE			main	ENDP;												//End main procedure.
 
 
 				END		main;											//End program.
-Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/06/18 19:30:24
+Microsoft (R) Macro Assembler Version 14.13.26132.0	    05/08/18 14:48:55
 Assembly x86 Calculato					     Symbols 2 - 1
 
 
@@ -392,8 +420,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 0000012E Para	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 0000026F Para	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000140 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 000002AE Para	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -500,16 +528,20 @@ WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External
 WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000026F Public STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 000002AE Public STDCALL
   ReadInput  . . . . . . . . . .	L Near	 00000000 _TEXT	
-  ConditionalJumps . . . . . . .	L Near	 0000003C _TEXT	
-  Addition . . . . . . . . . . .	L Near	 00000079 _TEXT	
-  Subtraction  . . . . . . . . .	L Near	 000000C5 _TEXT	
-  Multiplication . . . . . . . .	L Near	 00000111 _TEXT	
-  Division . . . . . . . . . . .	L Near	 0000015F _TEXT	
-  JumpToLoop . . . . . . . . . .	L Near	 00000227 _TEXT	
-  InvalidResponse  . . . . . . .	L Near	 0000024D _TEXT	
-  ExitProgram  . . . . . . . . .	L Near	 00000259 _TEXT	
+  GetOperation . . . . . . . . .	L Near	 00000000 _TEXT	
+  CheckOperator  . . . . . . . .	L Near	 00000014 _TEXT	
+  UnaryOperations  . . . . . . .	L Near	 00000041 _TEXT	
+  BinaryOperations . . . . . . .	L Near	 0000005E _TEXT	
+  Addition . . . . . . . . . . .	L Near	 000000A7 _TEXT	
+  Subtraction  . . . . . . . . .	L Near	 000000F3 _TEXT	
+  Multiplication . . . . . . . .	L Near	 0000013F _TEXT	
+  Division . . . . . . . . . . .	L Near	 0000018D _TEXT	
+  PrimeGeneration  . . . . . . .	L Near	 00000255 _TEXT	
+  JumpToLoop . . . . . . . . . .	L Near	 00000266 _TEXT	
+  InvalidResponse  . . . . . . .	L Near	 0000028C _TEXT	
+  ExitProgram  . . . . . . . . .	L Near	 00000298 _TEXT	
 printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
@@ -632,7 +664,6 @@ NULL . . . . . . . . . . . . . .	Number	 00000000h
 NUMLOCK_ON . . . . . . . . . . .	Number	 00000020h   
 OPEN_ALWAYS  . . . . . . . . . .	Number	 00000004h   
 OPEN_EXISTING  . . . . . . . . .	Number	 00000003h   
-Operations . . . . . . . . . . .	DWord	 000000FE _DATA	
 PeekConsoleInput . . . . . . . .	Text   	 PeekConsoleInputA
 RIGHT_ALT_PRESSED  . . . . . . .	Number	 00000001h   
 RIGHT_CTRL_PRESSED . . . . . . .	Number	 00000004h   
@@ -729,45 +760,49 @@ VK_UP  . . . . . . . . . . . . .	Number	 00000026h
 WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
 WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
 WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
-bigInt . . . . . . . . . . . . .	DWord	 00000112 _DATA	
+bigInt . . . . . . . . . . . . .	DWord	 00000124 _DATA	
+binaryOpts . . . . . . . . . . .	DWord	 0000010C _DATA	
 black  . . . . . . . . . . . . .	Number	 00000000h   
 blue . . . . . . . . . . . . . .	Number	 00000001h   
 brown  . . . . . . . . . . . . .	Number	 00000006h   
-cannotDivide . . . . . . . . . .	Byte	 000000BB _DATA	
+cannotDivide . . . . . . . . . .	Byte	 000000C5 _DATA	
 cyan . . . . . . . . . . . . . .	Number	 00000003h   
-diff . . . . . . . . . . . . . .	Byte	 000000F0 _DATA	
-divi . . . . . . . . . . . . . .	Byte	 000000F8 _DATA	
-dot  . . . . . . . . . . . . . .	Byte	 000000FC _DATA	
-equals . . . . . . . . . . . . .	Byte	 000000E8 _DATA	
+diff . . . . . . . . . . . . . .	Byte	 000000FA _DATA	
+divi . . . . . . . . . . . . . .	Byte	 00000102 _DATA	
+dot  . . . . . . . . . . . . . .	Byte	 00000106 _DATA	
+equals . . . . . . . . . . . . .	Byte	 000000F2 _DATA	
 exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
-firstNum . . . . . . . . . . . .	DWord	 00000106 _DATA	
-firstPart  . . . . . . . . . . .	DWord	 0000011E _DATA	
-goodbye  . . . . . . . . . . . .	Byte	 000000DF _DATA	
+firstNum . . . . . . . . . . . .	DWord	 0000011C _DATA	
+firstPart  . . . . . . . . . . .	DWord	 00000130 _DATA	
+goodbye  . . . . . . . . . . . .	Byte	 000000E9 _DATA	
 gray . . . . . . . . . . . . . .	Number	 00000008h   
 green  . . . . . . . . . . . . .	Number	 00000002h   
-invalid  . . . . . . . . . . . .	Byte	 000000AC _DATA	
+invalid  . . . . . . . . . . . .	Byte	 000000B6 _DATA	
 lightBlue  . . . . . . . . . . .	Number	 00000009h   
 lightCyan  . . . . . . . . . . .	Number	 0000000Bh   
 lightGray  . . . . . . . . . . .	Number	 00000007h   
 lightGreen . . . . . . . . . . .	Number	 0000000Ah   
 lightMagenta . . . . . . . . . .	Number	 0000000Dh   
 lightRed . . . . . . . . . . . .	Number	 0000000Ch   
-loop_prompt  . . . . . . . . . .	Byte	 00000065 _DATA	
+loop_prompt  . . . . . . . . . .	Byte	 0000006F _DATA	
 magenta  . . . . . . . . . . . .	Number	 00000005h   
-multi  . . . . . . . . . . . . .	Byte	 000000F4 _DATA	
-opt  . . . . . . . . . . . . . .	DWord	 0000010E _DATA	
-precision  . . . . . . . . . . .	DWord	 00000102 _DATA	
+multi  . . . . . . . . . . . . .	Byte	 000000FE _DATA	
+num  . . . . . . . . . . . . . .	DWord	 00000118 _DATA	
+opt  . . . . . . . . . . . . . .	DWord	 00000114 _DATA	
+precision  . . . . . . . . . . .	DWord	 00000110 _DATA	
 prompt_1 . . . . . . . . . . . .	Byte	 00000000 _DATA	
-prompt_2 . . . . . . . . . . . .	Byte	 00000010 _DATA	
-prompt_3 . . . . . . . . . . . .	Byte	 00000020 _DATA	
+prompt_2 . . . . . . . . . . . .	Byte	 00000046 _DATA	
+prompt_3 . . . . . . . . . . . .	Byte	 00000056 _DATA	
+prompt_4 . . . . . . . . . . . .	Byte	 00000066 _DATA	
 red  . . . . . . . . . . . . . .	Number	 00000004h   
-remainder  . . . . . . . . . . .	DWord	 00000126 _DATA	
-resultDiv  . . . . . . . . . . .	DWord	 0000011A _DATA	
-result . . . . . . . . . . . . .	DWord	 00000116 _DATA	
-secondNum  . . . . . . . . . . .	DWord	 0000010A _DATA	
-secondPart . . . . . . . . . . .	DWord	 00000122 _DATA	
-sum  . . . . . . . . . . . . . .	Byte	 000000EC _DATA	
-temp . . . . . . . . . . . . . .	DWord	 0000012A _DATA	
+remainder  . . . . . . . . . . .	DWord	 00000138 _DATA	
+resultDiv  . . . . . . . . . . .	DWord	 0000012C _DATA	
+result . . . . . . . . . . . . .	DWord	 00000128 _DATA	
+secondNum  . . . . . . . . . . .	DWord	 00000120 _DATA	
+secondPart . . . . . . . . . . .	DWord	 00000134 _DATA	
+sum  . . . . . . . . . . . . . .	Byte	 000000F6 _DATA	
+temp . . . . . . . . . . . . . .	DWord	 0000013C _DATA	
+totalOpts  . . . . . . . . . . .	DWord	 00000108 _DATA	
 white  . . . . . . . . . . . . .	Number	 0000000Fh   
 wsprintf . . . . . . . . . . . .	Text   	 wsprintfA
 yellow . . . . . . . . . . . . .	Number	 0000000Eh   
