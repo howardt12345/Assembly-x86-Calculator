@@ -244,9 +244,8 @@ main	PROC;																		//The main procedure.
 		INC		ecx;																	//Increment ecx.
 		CMP		ecx,				num;												//Compare ecx to num.
 		JB		fillArray;																//Jump to fillArray if below num.
-
 		XOR		ecx,				ecx;												//Performs xor operation on ecx and ecx, zeroing it.
-
+;																					//Start calculating prime numbers:
 	outerPrime:;;																	//The outer loop for prime number calculation:
 		MOV		ebx,				ecx;												//Move value of ecx to register ebx.
 		INC		ebx;																	//Increment ebx.
@@ -257,7 +256,6 @@ main	PROC;																		//The main procedure.
 		CMP		ecx,				num;												//Compare ecx to num.
 		JB		outerPrime;																//Jump to outerPrime if below num.
 		JMP		endPrime;																//Jump to endPrime when complete.
-
 	innerPrime:;																	//The inner loop for prime number calculation:	
 		CMP		[array1 + 4 * ebx], -1;													//Compare [array1 + 4 * ebx] to -1.
 		JNE		checkPrime;																//Jump to checkPrime if not equal.
@@ -266,7 +264,6 @@ main	PROC;																		//The main procedure.
 		CMP		ebx,				num;												//Compare ebx to num.
 		JB		innerPrime;																//Jump to innerPrime if below num.
 		JMP		resumeOuter;															//Jump to resumeOuter when complete.
-
 	checkPrime:;																	//Checks if number is a prime:
 		XOR		edx,				edx;												//Performs xor operation on edx and edx, zeroing it.
 		MOV		eax,				[array1 + 4 * ebx];									//Move value of [array1 + 4 * ebx] to eax.
@@ -275,14 +272,11 @@ main	PROC;																		//The main procedure.
 		JE		notPrime;																//Jump to notPrime if equal.
 	resume3:;																		//Resume checkPrime:
 		JMP		resumeInner;															//Jump to resumeInner.
-
 	notPrime:;																		//Flags a number as not prime:
 		MOV		[array1 + 4 * ebx], -1;													//Moves value of -1 in address [array1 + 4 * ebx].
 		JMP		resume3;																//Jump to resume3.
-
 	endPrime:;																		//End the prime number generation:
 		XOR		ecx,				ecx;												//Performs xor operation on ecx and ecx, zeroing it.
-
 	printArrayElement:;																//Prints the array element:
 		MOV		eax,				[array1 + 4 * ecx];									//Move value of [array1 + 4 * ecx] in register eax.
 		CALL	WriteDec;																//Writes the integer in register eax.
